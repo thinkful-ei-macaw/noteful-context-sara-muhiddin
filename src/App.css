@@ -1,0 +1,54 @@
+.App {
+  text-align: center;
+}
+html {
+  box-sizing: border-box;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+li {
+  list-style: none;
+}
+
+.folderItem {
+  background-color: rgb(55, 185, 55);
+  width: 200px;
+  border: 1px solid black;
+  padding: 20px;
+  color: white;
+  font-size: 1.3em;
+  margin: 0 auto;
+}
+.folderItem:hover {
+  background-color: rgb(71, 42, 150);
+  cursor: pointer;
+}
+
+.noteItem {
+  background-color: gray;
+  width: 50%;
+  margin: 10px auto;
+  padding: 10px;
+  cursor: pointer;
+  
+}
+
+.delete {
+  margin: 20px;
+}
+
+
+.folderSelected {
+  background-color: brown ;
+}
