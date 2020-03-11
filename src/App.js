@@ -3,17 +3,38 @@ import {Route} from 'react-router-dom';
 import './App.css';
 import Main from './Components/Main';
 import Note from './Components/Note';
-import store from './store';
 import UserContext from './Components/UserContext'
 
 class App extends Component {
 
 state = {
-  notes: store.notes,
-  folders: store.folders
+  notes: [],
+  folders: []
 }
 
+handleDelete = (noteId) => {
+  fetch(`http://localhost:9090/notes/${noteId}`,
+   { method: 'DELETE',
+    headers: { 'content-type': 'application/json' },
+   })
+  .then(res => res.json())
+  .then(notes => {
+    this.setState({notes: this.state.notes.filter(note => note.id !== noteId)})
+  })
+}
 
+componentDidMount() {
+  fetch('http://localhost:9090/folders')
+  .then(res => res.json())
+  .then(folders => {
+    fetch('http://localhost:9090/notes')
+    .then(res => res.json())
+    .then(notes => {
+      this.setState({notes: notes, folders: folders})
+      
+    })
+  })
+}
 
 render() {
 
@@ -21,11 +42,13 @@ render() {
     <UserContext.Provider value={{
       notesList: this.state.notes,
       foldersList: this.state.folders,
+      handleDelete: this.handleDelete
     }}>
     <div className="App">
       <Route exact path="/"   
       render={(props) => (
         <Main 
+          notesList = {this.state.notes}
           history={props.history}
         />
       )}
